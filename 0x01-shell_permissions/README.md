@@ -12,3 +12,7 @@ my shell permission task 10
 my shell permission task 11
 my shell permission task 12
 my shell permission task 13
+my shell permission task 14
+my shell permission task 15
+my shell permission task 16
+my shell permission task 17
