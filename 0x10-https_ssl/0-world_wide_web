@@ -1,8 +1,16 @@
 #!/usr/bin/env bash
-# Displays information about subdomains
-if [ $# -eq 1 ]; then
-	queries="www.$1 lb-01.$1 web-01.$1 web-02.$1"
-else
-	queries="$2.$1"
+# World wide web
+
+sub () {
+  echo "The subdomain $2 is a $(dig "$2"."$1" | grep -A1 'ANSWER SECTION:' | tail -n 1 |awk -F ' ' '{print $4}') record and points to $(dig "$2"."$1" | grep -A1 'ANSWER SECTION:' | tail -n 1 |awk -F ' ' '{print $5}')"
+
+}
+
+if [[ $# == 1 ]]; then
+	sub "$1" "www"
+	sub "$1" "lb-01"
+	sub "$1" "web-01"
+	sub "$1" "web-02"
+elif [[ $# == 2 ]]; then
+	sub "$1" "$2"
 fi
-dig $queries | awk '/ANSWER SECTION:/ { getline; split($1, a, "."); print "The subdomain", a[1], "is a", $4, "record and points to", $5}'
